@@ -2,6 +2,18 @@
 
 An NES emulator written in C++ using SDL3, developed for my thesis project.
 
+## Build 🔨
+```
+> git clone https://github.com/kacperskrzypiec/nes-emulator.git
+> cd nes-emulator
+> mkdir build
+> cd build
+> cmake .. -G "Ninja" -DPRODUCTION_BUILD=ON -DCMAKE_BUILD_TYPE=Release
+> cmake --build .
+```
+
+To build the project using Visual Studio, simply open the cloned repository in it. I've included the `CMakeSettings.json` file with the necessary build configurations.
+
 ## Status 📝
 Development is about to start 🛠️
 
