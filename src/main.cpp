@@ -1,21 +1,20 @@
 #include "App.hpp"
 
-#include <iostream>
-#include <format>
-
-#define DOCTEST_CONFIG_DISABLE
 #define DOCTEST_CONFIG_IMPLEMENT
 #include "doctest.h"
 
+#include <iostream>
+#include <format>
+
 int main(int argc, char* argv[]) {
+	// Run tests (disabled in production build)
 	doctest::Context ctx;
-	ctx.setOption("abort-after", 5);
 	ctx.applyCommandLine(argc, argv);
+	ctx.setOption("abort-after", 5);
 	ctx.setOption("no-breaks", true);
 	ctx.run();
-	CHECK(1 == 1);
 
-
+	// Run the application
 	SDL_Init(SDL_INIT_VIDEO);
 
 	try {

@@ -30,3 +30,4 @@ Development is about to start 🛠️
 ## Sources 📚
 
 - [NESdev](https://www.nesdev.org/wiki/NES_reference_guide)
+- [NES / Famicom Architecture - A practical analysis by Rodrigo Copetti](https://www.copetti.org/writings/consoles/nes/)

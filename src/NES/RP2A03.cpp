@@ -1,1 +1,5 @@
-#include "NES/RP2A03.h"
+#include "NES/RP2A03.hpp"
+
+namespace ks {
+
+}
