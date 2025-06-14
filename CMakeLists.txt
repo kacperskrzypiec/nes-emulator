@@ -40,6 +40,7 @@ set(SDLTTF_VENDORED ON)
 
 add_subdirectory(thirdparty/SDL-release-3.2.16 EXCLUDE_FROM_ALL)
 add_subdirectory(thirdparty/SDL_ttf-release-3.2.2 EXCLUDE_FROM_ALL)
+add_subdirectory(thirdparty/imgui)
 
 add_executable("${TARGET_NAME}" icon.rc)
 target_compile_definitions("${TARGET_NAME}" PUBLIC IDI_ICON1=102) 
@@ -64,10 +65,12 @@ file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/
 target_sources("${TARGET_NAME}" PRIVATE ${MY_SOURCES})
 
 target_include_directories("${TARGET_NAME}" PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/")
-target_include_directories("${TARGET_NAME}" PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/SDL_ttf-release-3.2.2/include/")
-target_include_directories("${TARGET_NAME}" PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/SDL-release-3.2.14/include/")
+target_include_directories("${TARGET_NAME}" SYSTEM PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/doctest/")
+target_include_directories("${TARGET_NAME}" SYSTEM PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/SDL_ttf-release-3.2.2/include/")
+target_include_directories("${TARGET_NAME}" SYSTEM PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/SDL-release-3.2.14/include/")
 
 target_link_libraries("${TARGET_NAME}" PRIVATE
 	SDL3::SDL3-static
 	SDL3_ttf::SDL3_ttf
+	ImGui
 )
