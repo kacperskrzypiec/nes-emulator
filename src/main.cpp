@@ -20,9 +20,10 @@ int main(int argc, char* argv[]) {
 	try {
 		ks::App app;
 		app.run();
-	}
-	catch (std::exception& e) {
-		std::cerr << std::format("ERROR: {}\n", e.what());
+	} catch (const std::runtime_error& e) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Runtime Error", e.what(), nullptr);
+	} catch (const std::exception& e) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", e.what(), nullptr);
 	}
 
 	SDL_Quit();
