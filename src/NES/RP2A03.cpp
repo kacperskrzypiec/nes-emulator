@@ -23,40 +23,47 @@ namespace ks {
 
 	auto RP2A03::fetch_and_execute() -> void {
 		const uint8_t opcode = m_bus.read(m_state.PC++);
-		m_executionUnit.instruction.decode(opcode);
+		m_executionUnit.instruction = ks::decode_instruction(opcode);
 
-		switch (m_executionUnit.instruction.get_addressing_mode()) {
-		case AddressingMode::Immediate: 
+		switch (m_executionUnit.instruction.addressingMode) {
+			using enum AddressingMode;
+		case Immediate: 
 			m_executionUnit.imm = m_bus.read(m_state.PC++);
 			[[fallthrough]];
-		case AddressingMode::Implied:
-		case AddressingMode::Accumulator: 
+		case Implied:
+		case Accumulator: 
 			m_executionUnit.stage = ExecutionStage::EXECUTE; 
 			break;
-
 		default: 
 			m_executionUnit.stage = ExecutionStage::LOAD; 
 			break;
 		}
 	}
 	auto RP2A03::load() -> void {
-		switch (m_executionUnit.instruction.get_addressing_mode()) {
-		case AddressingMode::Implied:
-		case AddressingMode::Accumulator:
-		case AddressingMode::Immediate:
+		switch (m_executionUnit.instruction.addressingMode) {
+			using enum AddressingMode;
+		case Implied:
+		case Accumulator:
+		case Immediate:
 			assert(0 && "Implied, Accumulator, and Immediate addressing modes should not be in the load stage.");
 		}
 	}
 	auto RP2A03::execute() -> void {
-		if (m_executionUnit.instruction.get_type() == InstructionType::INX) {
+		switch (m_executionUnit.instruction.type) {
+			using enum InstructionType;
+		case INX:
 			m_state.X++;
-			// no flags for now
-		}
-		else if (m_executionUnit.instruction.get_type() == InstructionType::LDA) {
-			if (m_executionUnit.instruction.get_addressing_mode() == AddressingMode::Immediate) {
+			break;
+		case DEX:
+			m_state.X--;
+			break;
+		case LDA:
+			if (m_executionUnit.instruction.addressingMode == AddressingMode::Immediate) {
 				m_state.A = m_executionUnit.imm;
 			}
+			break;
 		}
+
 		m_executionUnit.stage = ExecutionStage::FETCH_AND_DECODE;
 	}
 
