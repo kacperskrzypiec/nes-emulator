@@ -74,8 +74,12 @@ namespace ks {
 		if (ImGui::Button("Cycle")) {
 			m_cpu.cycle();
 		}
+		ImGui::SameLine();
+		if (ImGui::Button("Step")) {
+			m_cpu.step();
+		}
 		ImGui::Text(std::format("Cycles: {}", m_cpu.get_cycles()).c_str());
-		ImGui::Text(std::format("PC: {}", m_cpu.get_state().PC).c_str());
+		ImGui::Text(std::format("PC: {:04x}", m_cpu.get_state().PC).c_str());
 		ImGui::Text(std::format("A: {}", m_cpu.get_state().A).c_str());
 		ImGui::Text(std::format("X: {}", m_cpu.get_state().X).c_str());
 		ImGui::End();

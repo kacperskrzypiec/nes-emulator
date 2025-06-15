@@ -6,7 +6,7 @@
 #include <cstdint>
 
 namespace ks {
-	class Bus;
+	class IBus;
 
 	class RP2A03 {
 	public:
@@ -31,7 +31,7 @@ namespace ks {
 		};
 
 	public:
-		RP2A03(Bus& bus);
+		RP2A03(IBus& bus);
 		~RP2A03() = default;
 
 		auto cycle() -> void;
@@ -61,16 +61,25 @@ namespace ks {
 			uint8_t cycle{};
 			uint8_t operand1{};
 			uint8_t operand2{};
-			uint8_t imm{};
+			uint16_t address{};
+			union {
+				uint8_t imm{};
+				uint8_t n;
+			};
 		};
 
 	private:
-		auto fetch_and_execute() -> void;
+		auto fetch_and_decode() -> void;
 		auto load() -> void;
 		auto execute() -> void;
 
+		auto check_NZ_flags(const uint8_t value) -> void {
+			m_state.status[Flag::Negative] = (value >> 7) & 0x1;
+			m_state.status[Flag::Zero] = (value == 0);
+		}
+
 	private:
-		Bus& m_bus;
+		IBus& m_bus;
 
 		ExecutionUnit m_executionUnit;
 		State m_state;

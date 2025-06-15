@@ -1,8 +1,7 @@
 #include "NES/Register.hpp"
 #include "doctest.h"
 
-TEST_CASE("Register behavior")
-{
+TEST_CASE("Register behavior") {
 	ks::Register reg;
 
 	// Test initial state
