@@ -9,7 +9,8 @@
 #include <format>
 
 namespace ks {
-	App::App() {
+	App::App() 
+		:	m_cpu(m_bus){
 		m_window.create("NES emulator", 1280, 720, SDL_WINDOW_RESIZABLE);
 
 		IMGUI_CHECKVERSION();
@@ -73,6 +74,9 @@ namespace ks {
 		if (ImGui::Button("Cycle")) {
 			m_cpu.cycle();
 		}
+		ImGui::Text(std::format("Cycles: {}", m_cpu.get_cycles()).c_str());
+		ImGui::Text(std::format("PC: {}", m_cpu.get_state().PC).c_str());
+		ImGui::Text(std::format("A: {}", m_cpu.get_state().A).c_str());
 		ImGui::Text(std::format("X: {}", m_cpu.get_state().X).c_str());
 		ImGui::End();
 	}

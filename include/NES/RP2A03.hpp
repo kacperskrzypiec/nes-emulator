@@ -6,6 +6,8 @@
 #include <cstdint>
 
 namespace ks {
+	class Bus;
+
 	class RP2A03 {
 	public:
 		enum Flag {
@@ -29,7 +31,7 @@ namespace ks {
 		};
 
 	public:
-		RP2A03() = default;
+		RP2A03(Bus& bus);
 		~RP2A03() = default;
 
 		auto cycle() -> void;
@@ -41,6 +43,10 @@ namespace ks {
 
 		auto get_state() const -> const State& {
 			return m_state;
+		}
+
+		auto get_cycles() const -> uint64_t {
+			return m_cycles;
 		}
 
 	private:
@@ -55,6 +61,7 @@ namespace ks {
 			uint8_t cycle{};
 			uint8_t operand1{};
 			uint8_t operand2{};
+			uint8_t imm{};
 		};
 
 	private:
@@ -63,7 +70,11 @@ namespace ks {
 		auto execute() -> void;
 
 	private:
+		Bus& m_bus;
+
 		ExecutionUnit m_executionUnit;
 		State m_state;
+
+		uint64_t m_cycles{};
 	};
 }

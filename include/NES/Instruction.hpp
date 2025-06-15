@@ -11,13 +11,13 @@ namespace ks {
 		/* ZP		*/ ZeroPage,
 		/* ZP, X	*/ ZeroPageX,
 		/* ZP, Y	*/ ZeroPageY,
-		/* Relative */ Relative,
-		/* Absolute */ Absolute,
+		/* Relative	*/ Relative,
+		/* Absolute	*/ Absolute,
 		/* ABS, X	*/ AbsoluteX,
 		/* ABS, Y	*/ AbsoluteY,
-		/* Indirect */ Indirect,
-		/* (IND, X) */ IndexedIndirect,
-		/* (IND), Y */ IndirectIndexed,
+		/* Indirect	*/ Indirect,
+		/* (IND, X)	*/ IndexedIndirect,
+		/* (IND), Y	*/ IndirectIndexed,
 	};
 
 	enum class InstructionType : uint8_t {
@@ -40,10 +40,18 @@ namespace ks {
 		~Instruction() = default;
 
 		auto decode(const uint8_t opcode) -> void {
+			// Don't worry, it's just for testing.
+			// I like exploring step by step.
 			if (opcode == 0xE8) {
 				m_addressingMode = AddressingMode::Implied;
 				m_type = InstructionType::INX;
 				m_bytes = 1;
+				m_cycles = 2;
+			}
+			else if (opcode == 0xA9) {
+				m_addressingMode = AddressingMode::Immediate;
+				m_type = InstructionType::LDA;
+				m_bytes = 2;
 				m_cycles = 2;
 			}
 		}

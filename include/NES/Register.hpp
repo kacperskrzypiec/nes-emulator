@@ -8,12 +8,14 @@ namespace ks {
 		uint8_t data{};
 
 		auto get_bit(const uint8_t index) const -> bool {
-			assert(index >= 0 && index < 8);
+			assert(index >= 0 && "Index should be non-negative.");
+			assert(index < 8 && "Index should be less than 8.");
 
 			return (data >> index) & 0x1;
 		}
 		auto set_bit(const uint8_t index, const bool value) -> void {
-			assert(index >= 0 && index < 8);
+			assert(index >= 0 && "Index should be non-negative.");
+			assert(index < 8 && "Index should be less than 8.");
 
 			data ^= (-(int8_t)value ^ data) & (1 << index);
 
