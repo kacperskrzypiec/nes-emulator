@@ -7,16 +7,21 @@ TEST_CASE("CPU initialization state")
 	FAST_CHECK_EQ(cpu.get_state().PC, 0x8000);
 	FAST_CHECK_EQ(cpu.get_state().SP, 0xfd);
 	FAST_CHECK_EQ(cpu.get_state().A, 0x00);
-	FAST_CHECK_EQ(cpu.get_state().x, 0x00);
-	FAST_CHECK_EQ(cpu.get_state().y, 0x00);
+	FAST_CHECK_EQ(cpu.get_state().X, 0x00);
+	FAST_CHECK_EQ(cpu.get_state().Y, 0x00);
 	FAST_CHECK_EQ(cpu.get_state().status, 0x20);
 }
 
 TEST_CASE("CPU instructions")
 {
-	SUBCASE("NOP")
+	SUBCASE("INX")
 	{
 		ks::RP2A03 cpu;
-		cpu.step();
+		const int X = cpu.get_state().X;
+		const int wantX = (X + 1) % 255;
+		cpu.cycle();
+		FAST_CHECK_EQ(cpu.get_state().X, X);
+		cpu.cycle();
+		FAST_CHECK_EQ(cpu.get_state().X, wantX);
 	}
 }

@@ -1,10 +1,12 @@
 #include "App.hpp"
+#include "NES/Register.hpp"
 
 #include "imgui.h"
 #include "imgui_impl_sdl3.h"
 #include "imgui_impl_sdlrenderer3.h"
 
 #include <iostream>
+#include <format>
 
 namespace ks {
 	App::App() {
@@ -68,9 +70,10 @@ namespace ks {
 		ImGui::NewFrame();
 
 		ImGui::Begin("Window");
-		ImGui::Text("test");
-		static char a[512]{};
-		ImGui::InputText("test", a, 512);
+		if (ImGui::Button("Cycle")) {
+			m_cpu.cycle();
+		}
+		ImGui::Text(std::format("X: {}", m_cpu.get_state().X).c_str());
 		ImGui::End();
 	}
 	auto App::draw() -> void {

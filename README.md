@@ -15,7 +15,7 @@ An NES emulator written in C++ using SDL3, developed for my thesis project.
 To build the project using Visual Studio, simply open the cloned repository in it. I've included the `CMakeSettings.json` file with the necessary build configurations.
 
 ## Status 📝
-Development is about to start 🛠️
+Implementing the instruction decoder.
 
 ## Roadmap 🚀
 - 🟨 CPU implementation
@@ -31,3 +31,4 @@ Development is about to start 🛠️
 
 - [NESdev](https://www.nesdev.org/wiki/NES_reference_guide)
 - [NES / Famicom Architecture - A practical analysis by Rodrigo Copetti](https://www.copetti.org/writings/consoles/nes/)
+- [6502 Instruction Set](https://www.masswerk.at/6502/6502_instruction_set.html)

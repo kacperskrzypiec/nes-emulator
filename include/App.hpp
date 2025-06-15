@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Window.hpp"
+#include "NES/RP2A03.hpp"
 
 #include <SDL3/SDL.h>
 
@@ -20,5 +21,6 @@ namespace ks {
 
 	private:
 		ks::Window m_window;
+		ks::RP2A03 m_cpu;
 	};
 }
